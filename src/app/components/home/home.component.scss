@@ -1,0 +1,65 @@
+html, body {
+    margin:0 px!important;
+    height:100%;
+  }
+  
+  .homeDiv {
+    background:whitesmoke;
+    height:100vh;
+    width:100vw;
+  }
+
+  img{
+    border-radius: 50%;
+    width:100px;
+    height:100px;
+  }
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 53%;
+    margin-left: 272px;
+    margin-bottom: 20px;
+    margin-top:20px;
+
+  }
+  
+  .card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  
+  .container {
+    background-color: white;
+    margin-bottom:25px;
+  }
+  table{
+    margin-left: 156px;
+  }
+  h1{
+    margin-left:15px;
+    margin-top: 15px;
+  }
+  h4{
+    margin-left:15px;
+    margin-top: 15px;
+  }
+  .lastRow{
+    display: flex;
+  }
+
+  .card-body{
+    display: flex;
+  }
+  .btn{
+    margin-top:95px;
+  }
+  .even{
+    background-color: whitesmoke;
+  }
+  .row{
+    text-align: center;
+    border: 1px solid lightgray;
+  }
+  .total{
+    margin-left:273px;
+  }
