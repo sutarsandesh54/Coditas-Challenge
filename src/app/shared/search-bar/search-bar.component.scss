@@ -1,5 +1,5 @@
 .navMenu {
-  width: 100%; //fallback
+  // width: 100%; //fallback
   width: 100vw;
   height: 70px;
   background-color: #007bff;
@@ -10,7 +10,7 @@
 .dropbtn {
   color: #333;
   background-color: #fff;
-  border: 1px solid black;
+  // border: 1px solid black;
   border-radius: 4px;
   height: 41px;
   margin-top: 14px;
@@ -23,8 +23,9 @@
 .dropbtn:focus {
   background-color: lightslategray;
 }
-.dropdownContent {
-    border: 1px solid black;
+.dropdownContent {color: black;
+  font-family: 'Lato';
+  font-size: initial;
   display: grid;
   position: absolute;
   background-color: white;
@@ -60,10 +61,14 @@ li:hover {
 .dropTitle{
     margin-left: 120px;
     margin-right: 5px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 .dropArrow{
     font-weight: 300;
     margin-left: 80px;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 .searchBar{
     margin-top: 15px;

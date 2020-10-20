@@ -8,6 +8,7 @@ import { UserDataService } from './services/user-data.service';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from './shared/pagination/pagination.component';
 import { SearchBarComponent } from './shared/search-bar/search-bar.component';
+import { PaginationService } from './services/pagination.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { SearchBarComponent } from './shared/search-bar/search-bar.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [UserDataService],
+  providers: [UserDataService,PaginationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,43 +1,48 @@
 <div class="homeDiv">
-  <app-search-bar></app-search-bar>
-  <p class="total"><b>Total Results : 274</b></p>
-  <div class="card">
-    <div class="card-body col-md-12">
-      <div class="col-md-2">
-        <img
-          src="https://media.geeksforgeeks.org/wp-content/uploads/20190506164011/logo3.png"
-          alt="GeeksforGeeks logo"
-        />
+  <div class="row">
+    <app-search-bar
+      (emittedData)="getEmittedData($event)"
+      (emittedDropdownData)="dropDownEmittedData($event)"
+    ></app-search-bar>
+  </div>
+  <div class="row">
+    <p class="total">
+      <b>Total Results : {{ totaldata }}</b>
+    </p>
+  </div>
+  <div class="row">
+    <div class="card" *ngFor="let data of pageData">
+      <div class="card-body col-md-12 col-xs-12">
+        <div class="col-md-2 col-xs-12">
+          <img [src]="data.avatar_url" alt="GeeksforGeeks logo" />
+        </div>
+        <div class="col-md-8 col-xs-12">
+          <h2>{{ data.login | json }}</h2>
+          <p>Profile Url : {{ data.html_url | json }}</p>
+          <span>Data One : {{ data.id | json }}</span
+          ><br />
+          <span>Data Two : {{ data.score | json }}</span>
+        </div>
+        <div class="col-md-2 col-xs-12">
+          <button (click)="buttonClicked($event)" class="btn btn-primary">
+            {{ buttonName }}
+          </button>
+        </div>
       </div>
-      <div class="col-md-8">
-        <h2>Varun Shriniwas</h2>
-        <p>Profile Url:</p>
-        <span>Data One</span><br />
-        <span>Data Two</span>
-      </div>
-      <div class="col-md-2">
-        <button (click)="buttonClicked($event)" class="btn btn-primary">
-          {{ buttonName }}
-        </button>
+      <div *ngIf="isExpanded" class="col-md-12 col-xs-12" style="height: 300px">
+        <div class="row" *ngFor="let data of userDetails">
+          <p class="col-md-6 col-xs-12">{{ data.name | json }}</p>
+          <p class="col-md-6 col-xs-12">{{ data.language | json }}</p>
+        </div>
       </div>
     </div>
-    <div *ngIf="isExpanded" class="col-md-12" style="height: 300px">
-      <div class="row">
-        <p class="col-md-6">Data Label</p>
-        <p class="col-md-6">Data Value</p>
-      </div>
-      <div class="row even">
-        <p class="col-md-6">Data Label</p>
-        <p class="col-md-6">Data Value</p>
-      </div>
-      <div class="row">
-        <p class="col-md-6">Data Label</p>
-        <p class="col-md-6">Data Value</p>
-      </div>
-      <div class="row even">
-        <p class="col-md-6">Data Label</p>
-        <p class="col-md-6">Data Value</p>
-      </div>
+  </div>
+  <div class="row">
+    <div class="pagination">
+      <app-pagination
+        [allitem]="userData"
+        (pageData)="singlePageData($event)"
+      ></app-pagination>
     </div>
   </div>
 </div>
