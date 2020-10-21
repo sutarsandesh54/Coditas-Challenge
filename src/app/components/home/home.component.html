@@ -1,48 +1,60 @@
-<div class="homeDiv">
-  <div class="row">
-    <app-search-bar
-      (emittedData)="getEmittedData($event)"
-      (emittedDropdownData)="dropDownEmittedData($event)"
-    ></app-search-bar>
-  </div>
-  <div class="row">
-    <p class="total">
-      <b>Total Results : {{ totaldata }}</b>
-    </p>
-  </div>
-  <div class="row">
-    <div class="card" *ngFor="let data of pageData">
-      <div class="card-body col-md-12 col-xs-12">
-        <div class="col-md-2 col-xs-12">
-          <img [src]="data.avatar_url" alt="GeeksforGeeks logo" />
-        </div>
-        <div class="col-md-8 col-xs-12">
-          <h2>{{ data.login | json }}</h2>
-          <p>Profile Url : {{ data.html_url | json }}</p>
-          <span>Data One : {{ data.id | json }}</span
-          ><br />
-          <span>Data Two : {{ data.score | json }}</span>
-        </div>
-        <div class="col-md-2 col-xs-12">
-          <button (click)="buttonClicked($event)" class="btn btn-primary">
-            {{ buttonName }}
-          </button>
-        </div>
+<html>
+  <body>
+    <div class="homeDiv">
+      <div class="row">
+        <app-search-bar
+          (emittedData)="getEmittedData($event)"
+          (emittedDropdownData)="dropDownEmittedData($event)"
+        ></app-search-bar>
       </div>
-      <div *ngIf="isExpanded" class="col-md-12 col-xs-12" style="height: 300px">
-        <div class="row" *ngFor="let data of userDetails">
-          <p class="col-md-6 col-xs-12">{{ data.name | json }}</p>
-          <p class="col-md-6 col-xs-12">{{ data.language | json }}</p>
+      <div class="row">
+        <p class="total">
+          <b>Total Results : {{ totaldata }}</b>
+        </p>
+      </div>
+      <div class="row">
+        <div class="card" *ngFor="let data of pageData">
+          <div class="card-body col-md-12 col-xs-12">
+            <div class="col-md-2 col-xs-12">
+              <img [src]="data.avatar_url" alt="GeeksforGeeks logo" />
+            </div>
+            <div class="col-md-8 col-xs-12">
+              <h2>{{ data.login | json }}</h2>
+              <p>Profile Url : {{ data.html_url | json }}</p>
+              <span>Data One : {{ data.id | json }}</span
+              ><br />
+              <span>Data Two : {{ data.score | json }}</span>
+            </div>
+            <div class="col-md-2 col-xs-12">
+              <button (click)="buttonClicked(data)" class="btn btn-primary">
+                {{ buttonName }}
+              </button>
+            </div>
+          </div>
+          <div
+            *ngIf="
+              isExpanded &&
+              data.repo
+            "
+            class="col-md-12 col-xs-12"
+            style="height: 300px"
+          >
+            <div class="row" *ngFor="let dt of data.repo">
+              <p class="col-md-6 col-xs-12">{{ dt.name | json }}</p>
+              <p class="col-md-6 col-xs-12">{{ dt.language | json }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="pagination">
+            <app-pagination
+              [allitem]="userData"
+              (pageData)="singlePageData($event)"
+            ></app-pagination>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="pagination">
-      <app-pagination
-        [allitem]="userData"
-        (pageData)="singlePageData($event)"
-      ></app-pagination>
-    </div>
-  </div>
-</div>
+    
+  </body>
+</html>

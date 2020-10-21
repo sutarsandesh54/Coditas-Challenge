@@ -1,5 +1,5 @@
-import { EventEmitter, OnChanges, OnInit } from "@angular/core";
-import { Output } from '@angular/core';
+import { EventEmitter, OnChanges } from "@angular/core";
+import { Output } from "@angular/core";
 import { Input } from "@angular/core";
 import { Component } from "@angular/core";
 import { PaginationService } from "src/app/services/pagination.service";
@@ -9,29 +9,23 @@ import { PaginationService } from "src/app/services/pagination.service";
   templateUrl: "./pagination.component.html",
   styleUrls: ["./pagination.component.scss"],
 })
-export class PaginationComponent implements OnInit, OnChanges {
+export class PaginationComponent implements OnChanges {
   @Input() allitem: [];
   @Output() pageData = new EventEmitter<any>();
-  // array of all items to be paged
-  private allItems: any[];
-
   // pager object
-  pager: any = {};
-
+  public pager: any = {};
   // paged items
-  pagedItems: any[];
+  public pagedItems: any[];
+
   constructor(private pagerService: PaginationService) {}
 
-  ngOnInit() {
-    // get dummy data
-  }
   ngOnChanges() {
     if (this.allitem) {
       this.setPage(1);
     }
   }
 
-  setPage(page: number) {
+  public setPage(page: number) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.allitem.length, page);
 
@@ -40,9 +34,7 @@ export class PaginationComponent implements OnInit, OnChanges {
       this.pager.startIndex,
       this.pager.endIndex + 1
     );
-    // this.pagedItems.sort((a, b) => a.login.localeCompare(b.login));
 
     this.pageData.emit(this.pagedItems);
-
   }
 }

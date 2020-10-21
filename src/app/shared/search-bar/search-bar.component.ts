@@ -7,10 +7,8 @@ import { UserDataService } from "src/app/services/user-data.service";
   styleUrls: ["./search-bar.component.scss"],
 })
 export class SearchBarComponent implements OnInit {
-  isExpanded = false;
-  allUsersData = [];
-  mydata;
-  listElements = [
+  public isExpanded = false;
+  public listElements = [
     "By Name (A - Z)",
     "By Name (Z - A)",
     "By Rank ↑",
@@ -18,20 +16,18 @@ export class SearchBarComponent implements OnInit {
   ];
   @Output() emittedData = new EventEmitter<any>();
   @Output() emittedDropdownData = new EventEmitter<any>();
+
   constructor(private service: UserDataService) {}
 
   ngOnInit() {}
-  dropDownClicked(e) {
+  public dropDownClicked(e) {
     this.isExpanded = !this.isExpanded;
   }
-  onSearchChange(searchValue: string): void {
-    console.log("key pressed", searchValue);
-    
+
+  public onSearchChange(searchValue: string): void {
     this.emittedData.emit(searchValue);
   }
-  dropdownItemClicked(item) {
-    console.log("clicked item=", item);
+  public dropdownItemClicked(item) {
     this.emittedDropdownData.emit(item);
-
   }
 }
