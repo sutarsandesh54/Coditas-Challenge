@@ -1,22 +1,15 @@
-import {
-  AfterContentChecked,
-  ChangeDetectorRef,
-  ElementRef,
-  OnChanges,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
-import { Component, OnInit } from '@angular/core';
-import { UserDataService } from 'src/app/services/user-data.service';
+import { ChangeDetectorRef } from "@angular/core";
+import { Component } from "@angular/core";
+import { UserDataService } from "src/app/services/user-data.service";
+import { COLLAPSE_TEXT, DETAIL_TEXT } from 'src/app/shared/constants/constants';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent implements OnInit, AfterContentChecked {
+export class HomeComponent {
   public isExpanded = false;
-  public buttonName = 'Details';
   public searchedUserdata = [];
   public userData = [];
   public userDetails = [];
@@ -33,34 +26,28 @@ export class HomeComponent implements OnInit, AfterContentChecked {
     private changeDetector: ChangeDetectorRef
   ) {}
 
-  ngOnInit() {}
-
-  // for change Detection Purpose
-  ngAfterContentChecked(): void {
-    this.changeDetector.detectChanges();
-  }
-
-  buttonClicked(userDetails) {
+  public buttonClicked(userDetails): void {
     this.isExpanded = !this.isExpanded;
     if (this.isExpanded) {
-      this.buttonName = 'Collapse';
       this.idArray.push(userDetails.id);
       this.service.getUserRepoData(userDetails.login).subscribe((data) => {
         this.pageData.map((ele) => {
           if (ele.id === data[0].owner.id) {
-            ele['repo'] = data;
+            ele.repo = data;
+            ele.buttonText = COLLAPSE_TEXT;
           }
         });
-        console.log('tttttt', this.pageData);
         this.userDetails = data;
       });
     } else {
-      this.buttonName = 'Details';
-      // this.idArray.pop();
+      this.pageData.map((ele) => {
+        if (ele.id === userDetails.id) {
+          ele.buttonText = DETAIL_TEXT;
+        }
+      });
     }
   }
-
-  // for All User Data
+/*  for All User Data*/
   public getEmittedData(data) {
     this.userSearch = data;
     this.service.getUserData(this.userSearch).subscribe((userdata) => {
@@ -69,34 +56,35 @@ export class HomeComponent implements OnInit, AfterContentChecked {
       this.totaldata = userdata.total_count;
     });
   }
-
+/* Pagination Data */
   public singlePageData(data) {
     this.pageData = data;
+    this.changeDetector.detectChanges();
   }
 
-  // for Sorting functionality
+  /*  Sorting functionality */
   public dropDownEmittedData(data) {
     this.emittedChoice = data;
     switch (this.emittedChoice) {
-      case 'By Name (A - Z)':
+      case "By Name (A - Z)":
         this.userData = this.userData.sort((a, b) =>
           a.login.localeCompare(b.login)
         );
-        this.userData =  [...this.userData ];
+        this.userData = [...this.userData];
         break;
-      case 'By Name (Z - A)':
+      case "By Name (Z - A)":
         this.userData.sort((a, b) => a.login.localeCompare(b.login));
         this.userData = this.userData.reverse();
-        this.userData =  [...this.userData ];
+        this.userData = [...this.userData];
         break;
-      case 'By Rank ↑':
+      case "By Rank ↑":
         this.userData = this.userData.sort((a, b) => a.id - b.id);
-        this.userData =  [...this.userData ];
+        this.userData = [...this.userData];
         break;
-      case 'By Rank ↓':
+      case "By Rank ↓":
         this.userData.sort((a, b) => a.id - b.id);
         this.userData = this.userData.reverse();
-        this.userData =  [...this.userData ];
+        this.userData = [...this.userData];
         break;
       default:
     }

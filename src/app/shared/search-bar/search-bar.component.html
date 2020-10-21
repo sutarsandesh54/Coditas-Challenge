@@ -1,32 +1,9 @@
-<!-- <div class="navMenu">
-  <div class="dropdownMenu">
-    <div (click)="dropDownClicked($event)" class="dropbtn">
-      <p class="dropTitle">Sort</p>
-      <p class="dropArrow" *ngIf="!isExpanded">&#8964;</p>
-      <p class="dropArrow" *ngIf="isExpanded">&#8963;</p>
-    </div>
-    <div *ngIf="isExpanded" class="dropdownContent">
-      <ul *ngFor="let element of listElements" class="">
-        <li (click)="dropdownItemClicked(element)">{{ element }}</li>
-      </ul>
-    </div>
-    <div class="searchBar">
-      <input
-        type="text"
-        name="search"
-        placeholder="Enter User Name.."
-        (input)="onSearchChange($event.target.value)"
-      />
-    </div>
-  </div>
-</div> -->
-
 <div class="navMenu col-md-12">
   <div class="col-md-5">
     <div (click)="dropDownClicked($event)" class="dropbtn">
       <p class="dropTitle">Sort</p>
-      <p class="dropArrow" *ngIf="!isExpanded">&uarr;</p>
-      <p class="dropArrow" *ngIf="isExpanded">&darr;</p>
+      <p class="dropArrow" *ngIf="!isExpanded">&darr;</p>
+      <p class="dropArrow" *ngIf="isExpanded">&uarr;</p>
     </div>
     <div *ngIf="isExpanded" class="dropdownContent">
       <ul *ngFor="let element of listElements" class="">

@@ -12,9 +12,7 @@ import { PaginationService } from "src/app/services/pagination.service";
 export class PaginationComponent implements OnChanges {
   @Input() allitem: [];
   @Output() pageData = new EventEmitter<any>();
-  // pager object
   public pager: any = {};
-  // paged items
   public pagedItems: any[];
 
   constructor(private pagerService: PaginationService) {}
@@ -25,11 +23,9 @@ export class PaginationComponent implements OnChanges {
     }
   }
 
+  //for  setting page
   public setPage(page: number) {
-    // get pager object from service
     this.pager = this.pagerService.getPager(this.allitem.length, page);
-
-    // get current page of items
     this.pagedItems = this.allitem.slice(
       this.pager.startIndex,
       this.pager.endIndex + 1

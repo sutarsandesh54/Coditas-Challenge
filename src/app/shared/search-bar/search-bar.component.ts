@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { UserDataService } from "src/app/services/user-data.service";
 
 @Component({
@@ -6,7 +6,7 @@ import { UserDataService } from "src/app/services/user-data.service";
   templateUrl: "./search-bar.component.html",
   styleUrls: ["./search-bar.component.scss"],
 })
-export class SearchBarComponent implements OnInit {
+export class SearchBarComponent {
   public isExpanded = false;
   public listElements = [
     "By Name (A - Z)",
@@ -14,20 +14,20 @@ export class SearchBarComponent implements OnInit {
     "By Rank ↑",
     "By Rank ↓",
   ];
-  @Output() emittedData = new EventEmitter<any>();
-  @Output() emittedDropdownData = new EventEmitter<any>();
+  @Output() searchBarData = new EventEmitter<any>();
+  @Output() dropdownData = new EventEmitter<any>();
 
   constructor(private service: UserDataService) {}
 
-  ngOnInit() {}
   public dropDownClicked(e) {
     this.isExpanded = !this.isExpanded;
   }
 
   public onSearchChange(searchValue: string): void {
-    this.emittedData.emit(searchValue);
+    this.searchBarData.emit(searchValue);
   }
+
   public dropdownItemClicked(item) {
-    this.emittedDropdownData.emit(item);
+    this.dropdownData.emit(item);
   }
 }

@@ -1,26 +1,33 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { UserDetails } from "../models/data.model";
+import { map } from "rxjs/operators";
+import { userApiURL, repoApiURL } from "../shared/constants/constants";
 
 @Injectable({
   providedIn: "root",
 })
 export class UserDataService {
-  myUrl = "https://api.github.com/search/users?q=";
-
-  repoUrl = "https://api.github.com/users/";
-
   constructor(private http: HttpClient) {}
 
-  getUserData(username: string): Observable<any> {
+  getUserData(username: string): Observable<UserDetails> {
     const body = username;
-    const finalURL = `${this.myUrl}${body}`;
-    return this.http.get(finalURL);
+    const finalURL = `${userApiURL}${body}`;
+    return this.http.get<UserDetails>(finalURL).pipe(
+      map((dataElement) => {
+        dataElement.items.map((element) => {
+          element.buttonText = "Details";
+          return element;
+        });
+        return dataElement;
+      })
+    );
   }
 
   getUserRepoData(username): Observable<any> {
     const body = username;
-    const change = `${this.repoUrl}${body}/repos`;
+    const change = `${repoApiURL}${body}/repos`;
     return this.http.get(change);
   }
 }
