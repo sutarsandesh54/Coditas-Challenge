@@ -1,7 +1,7 @@
 import { ChangeDetectorRef } from "@angular/core";
 import { Component } from "@angular/core";
 import { UserDataService } from "src/app/services/user-data.service";
-import { COLLAPSE_TEXT, DETAIL_TEXT } from 'src/app/shared/constants/constants';
+import { COLLAPSE_TEXT, DETAIL_TEXT } from "src/app/shared/constants/constants";
 
 @Component({
   selector: "app-home",
@@ -42,12 +42,13 @@ export class HomeComponent {
     } else {
       this.pageData.map((ele) => {
         if (ele.id === userDetails.id) {
+          delete ele.repo;
           ele.buttonText = DETAIL_TEXT;
         }
       });
     }
   }
-/*  for All User Data*/
+  /*  for All User Data*/
   public getEmittedData(data) {
     this.userSearch = data;
     this.service.getUserData(this.userSearch).subscribe((userdata) => {
@@ -56,7 +57,7 @@ export class HomeComponent {
       this.totaldata = userdata.total_count;
     });
   }
-/* Pagination Data */
+  /* Pagination Data */
   public singlePageData(data) {
     this.pageData = data;
     this.changeDetector.detectChanges();
