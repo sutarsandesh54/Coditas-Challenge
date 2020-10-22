@@ -1,18 +1,17 @@
-.container{
-
-    a {
-        cursor: pointer;
-        padding:5px;
-        float:right;
-    }
-    .active{
-        background-color: skyblue;
-    }
-    .disabled{
-        background-color: gainsboro;
-    }
-    li{
-        border:1px solid lightsteelblue;
-        margin-right: 5px;
-    }
+.container {
+  a {
+    cursor: pointer;
+    padding: 5px;
+    float: right;
+  }
+  .active {
+    background-color: skyblue;
+  }
+  .disabled {
+    background-color: gainsboro;
+  }
+  li {
+    border: 1px solid lightsteelblue;
+    margin-right: 5px;
+  }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { UserDetails } from "../models/data.model";
+import { RepoDetails, UserDetails } from "../models/data.model";
 import { map } from "rxjs/operators";
 import { userApiURL, repoApiURL } from "../shared/constants/constants";
 
@@ -11,7 +11,7 @@ import { userApiURL, repoApiURL } from "../shared/constants/constants";
 export class UserDataService {
   constructor(private http: HttpClient) {}
 
-  getUserData(username: string): Observable<UserDetails> {
+  public getUserData(username: string): Observable<UserDetails> {
     const body = username;
     const finalURL = `${userApiURL}${body}`;
     return this.http.get<UserDetails>(finalURL).pipe(
@@ -25,9 +25,9 @@ export class UserDataService {
     );
   }
 
-  getUserRepoData(username): Observable<any> {
+  public getUserRepoData(username): Observable<RepoDetails> {
     const body = username;
     const change = `${repoApiURL}${body}/repos`;
-    return this.http.get(change);
+    return this.http.get<RepoDetails>(change);
   }
 }

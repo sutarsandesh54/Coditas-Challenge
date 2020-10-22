@@ -1,5 +1,7 @@
-import { ChangeDetectorRef } from "@angular/core";
+import { DOCUMENT } from "@angular/common";
+import { ChangeDetectorRef, Inject, OnInit } from "@angular/core";
 import { Component } from "@angular/core";
+import { RepoDetails } from "src/app/models/data.model";
 import { UserDataService } from "src/app/services/user-data.service";
 import { COLLAPSE_TEXT, DETAIL_TEXT } from "src/app/shared/constants/constants";
 
@@ -8,11 +10,11 @@ import { COLLAPSE_TEXT, DETAIL_TEXT } from "src/app/shared/constants/constants";
   templateUrl: "./home.component.html",
   styleUrls: ["./home.component.scss"],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   public isExpanded = false;
   public searchedUserdata = [];
   public userData = [];
-  public userDetails = [];
+  public userDetails: RepoDetails;
   public pageData = [];
   public totaldata = 0;
   public userSearch: string;
@@ -26,6 +28,13 @@ export class HomeComponent {
     private changeDetector: ChangeDetectorRef
   ) {}
 
+  ngOnInit() {
+    window.onbeforeunload = function () {
+      window.scrollTo(0, 0);
+    };
+  }
+
+  /* Detail Button Click */
   public buttonClicked(userDetails): void {
     this.isExpanded = !this.isExpanded;
     if (this.isExpanded) {
@@ -57,6 +66,7 @@ export class HomeComponent {
       this.totaldata = userdata.total_count;
     });
   }
+
   /* Pagination Data */
   public singlePageData(data) {
     this.pageData = data;
